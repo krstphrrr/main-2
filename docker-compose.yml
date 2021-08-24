@@ -1,0 +1,15 @@
+version: "3.9"
+services:
+  main-api:
+    build:
+      context: .
+      dockerfile: .
+    ports:
+      - 4000:4000
+    container_name: main-api
+    volumes:
+      - ./app:/usr/src/app:cached
+  # redis:
+  #   image: redis
+  #   ports:
+  #     - 6379:6379
