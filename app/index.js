@@ -1,10 +1,13 @@
-import express from 'express';
+const express = require('express');
+const routes = require('./routes/routes.js')
 
 const app = express();
 const PORT = 4000; 
 
+routes(app)
+
 app.get('/', (request,response)=>{
-  response.send("hey")
+  response.send("hey ")
 })
 
 app.listen(PORT, ()=>{
