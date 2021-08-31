@@ -1,24 +1,18 @@
 const express = require('express');
-const routes = require('./routes/routes.js')
 const db = require('./config/db')
+const routes = require('./routes/routes')
+
+const Op = db.Sequelize.Op;
+
 
 const app = express();
 const PORT = 4000; 
 
-routes(app)
+// routes(app)
 
-app.get('/', (request,response)=>{
-  response.send("hey ")
+app.use('/api', routes)
+
+
+app.listen(PORT, ()=>{
+    console.log(`Listening on port:${PORT}`)
 })
-
-db.sequelize
-  .sync({logging:console.log})
-  .catch(err=>{
-    console.log(err)
-  })
-  .then(result=>{
-    app.listen(PORT, ()=>{
-      console.log(`Listening on port:${PORT}`)
-    })
-  })
-

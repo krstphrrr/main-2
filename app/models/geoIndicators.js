@@ -399,7 +399,8 @@ module.exports = function(sequelize, DataTypes) {
     },
     PrimaryKey: {
       type: DataTypes.STRING(100),
-      allowNull: true,
+      // allowNull: false,
+      primaryKey: true,
       references: {
         model: 'dataHeader',
         key: 'PrimaryKey'
