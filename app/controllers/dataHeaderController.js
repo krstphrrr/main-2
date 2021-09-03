@@ -8,12 +8,10 @@ const DataHeader = models.dataHeader
 
 
 exports.getHeader = (request, response, next) => {
-
-  console.log(whereConstruct(request.query))
   try {
     DataHeader.findAll({
       limit:1,
-      where: whereConstruct(request.query)
+      where: whereConstruct(request.query, DataHeader.rawAttributes)
     })
     .then(e =>{
       response.status(200).send(e)
@@ -22,6 +20,7 @@ exports.getHeader = (request, response, next) => {
     console.error(err)
   }
 }
+
 exports.getHeaderState = (request, response, next) => {
   try {
     DataHeader.findAll({

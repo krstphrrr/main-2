@@ -1,4 +1,6 @@
 const dbConfig = require('./config')
+const pino = require('pino')
+const logger = pino({level:'debug', prettyPrint:true})
 
 const Sequelize = require("sequelize");
 const sequelize = new Sequelize(
@@ -7,6 +9,7 @@ const sequelize = new Sequelize(
   dbConfig.database.password, {
   host: dbConfig.database.host,
   dialect: dbConfig.database.dialect,
+  logger: (sql, timing) => logger.info(sql, typeof timing ==='number'? `Elapsed time: ${timing}ms`: ''),
   // operatorsAliases: false,
 
   pool: {

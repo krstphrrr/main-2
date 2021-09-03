@@ -1,15 +1,12 @@
 const express = require('express');
 const db = require('./config/db')
 const routes = require('./routes/routes')
-
-const Op = db.Sequelize.Op;
+const pino = require('pino-http')()
 
 
 const app = express();
 const PORT = 4000; 
-
-// routes(app)
-
+app.use(pino)
 app.use('/api', routes)
 
 

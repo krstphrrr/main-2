@@ -7,7 +7,6 @@ const router = express.Router()
 
 router.get('/dataheader', HeaderController.getHeader)
 router.get('/dataheader/:state', HeaderController.getHeaderState)
-
 router.get('/geoindicators', GeoIndicatorsController.getGeoIndicators)
 
 

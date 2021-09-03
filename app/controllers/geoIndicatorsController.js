@@ -6,18 +6,16 @@ const GeoIndicators = models.geoIndicators
 const DataHeader = models.dataHeader
 
 exports.getGeoIndicators = (request, response, next) => {
-  // add per-table field handlers here
-  
   try{
     GeoIndicators.findAll({
-      limit:2,
-      where: whereConstruct(request.query),
-      
+      limit:5,
+      where: whereConstruct(request.query, GeoIndicators.rawAttributes),
       include: [{
         model:DataHeader,
-        required:true
+        required:true,
+        attributes:[],
+        where: whereConstruct(request.query, DataHeader.rawAttributes)
       }],
-
     })
     .then(e =>{
       response.status(200).send(e)
