@@ -1,14 +1,16 @@
-var DataTypes = require("sequelize").DataTypes;
-var _geoIndicators = require("./geoIndicators");
+let DataTypes = require("sequelize").DataTypes;
+let _geoIndicators = require("./geoIndicators");
+let _dataHeader = require("./dataHeader")
 
 function initModels(sequelize) {
-  var geoIndicators = _geoIndicators(sequelize, DataTypes);
+  let geoIndicators = _geoIndicators(sequelize, DataTypes);
+  let dataHeader = _dataHeader(sequelize, DataTypes)
 
-  geoIndicators.belongsTo(dataHeader, { as: "PrimaryKey_dataHeader", foreignKey: "PrimaryKey"});
-  dataHeader.hasMany(geoIndicators, { as: "geoIndicators", foreignKey: "PrimaryKey"});
+  geoIndicators.belongsTo(dataHeader, { foreignKey: "PrimaryKey"});
+  dataHeader.hasMany(geoIndicators, {foreignKey: "PrimaryKey"});
 
   return {
-    geoIndicators,
+    geoIndicators, dataHeader
   };
 }
 module.exports = initModels;

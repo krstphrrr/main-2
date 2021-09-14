@@ -1,15 +1,31 @@
-const {Pool} = require('pg')
-const config = require('./config')
+const dbConfig = require('./config')
+const pino = require('pino')
+const logger = pino({level:'debug', prettyPrint:true})
 
-const db = new Pool({ 
-  user:config.database.user,
-  password: config.database.password,
-  host: config.database.host,
-  port: config.database.port,
-  database: config.database.dbname
-})
-db.on('connect', ()=>{
-  console.log('connected')
-})
+const Sequelize = require("sequelize");
+const sequelize = new Sequelize(
+  dbConfig.database.dbname, 
+  dbConfig.database.user, 
+  dbConfig.database.password, {
+  host: dbConfig.database.host,
+  dialect: dbConfig.database.dialect,
+  logger: (sql, timing) => logger.info(sql, typeof timing ==='number'? `Elapsed time: ${timing}ms`: ''),
+  // operatorsAliases: false,
+
+  pool: {
+    max: dbConfig.database.pool.max,
+    min: dbConfig.database.pool.min,
+    acquire: dbConfig.database.pool.acquire,
+    idle: dbConfig.database.pool.idle
+  }
+});
+
+
+const db = {};
+
+db.Sequelize = Sequelize;
+db.sequelize = sequelize;
+
+// db.dataHeader = require('./dataHeader')(sequelize,Sequelize)
 
 module.exports = db

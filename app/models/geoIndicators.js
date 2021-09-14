@@ -399,7 +399,8 @@ module.exports = function(sequelize, DataTypes) {
     },
     PrimaryKey: {
       type: DataTypes.STRING(100),
-      allowNull: true,
+      // allowNull: false,
+      primaryKey: true,
       references: {
         model: 'dataHeader',
         key: 'PrimaryKey'
@@ -564,7 +565,45 @@ module.exports = function(sequelize, DataTypes) {
     TotalFoliarCover: {
       type: DataTypes.DECIMAL,
       allowNull: true
-    }
+    },
+
+    mlra_name: {
+      type: DataTypes.TEXT,
+      allowNull: true
+    },
+
+    mlrarsym: {
+      type: DataTypes.TEXT,
+      allowNull:true
+    },
+
+    na_l1name: {
+      type: DataTypes.TEXT,
+      allowNull:true
+    },
+
+    na_l2name: {
+      type: DataTypes.TEXT,
+      allowNull:true
+    },
+
+    us_l3name: {
+      type: DataTypes.TEXT,
+      allowNull:true
+    },
+
+    us_l4name: {
+      type: DataTypes.TEXT,
+      allowNull:true
+    },
+
+    modis_landcover: {
+      type: DataTypes.TEXT,
+      allowNull:true
+    },
+
+
+
   }, {
     sequelize,
     tableName: 'geoIndicators',
